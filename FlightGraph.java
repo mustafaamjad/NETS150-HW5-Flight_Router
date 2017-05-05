@@ -1,6 +1,6 @@
 public class FlightGraph implements FlightGraphInterface {
 	
-	public FlightGraph(String filename) {
+	public FlightGraph(String airports, String routes) {
 	}
 
 
