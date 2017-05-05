@@ -1,8 +1,12 @@
+import java.io.IOException;
+
 public class FlightRouter {
 
-	public static void main(String[] args) {
-		FlightGraph graph = new FlightGraph("");
-		GraphAlgorithms test = new GraphAlgorithms(graph);
-		System.out.println("Hello World"); 
+	public static void main(String[] args) throws IOException {
+		FlightGraph graph = new FlightGraph("airports.csv", "routes.csv");
+
+		// TEST doesEdgeExist 
+		// System.out.println(graph.doesEdgeExist("YVR", "DEN"));
+		graph.getAllInAndOutFlights();
 	}
 }

@@ -1,7 +1,9 @@
 public interface FlightGraphInterface {
 
-	public boolean doesEdgeExist(Node m, Node n);
-	// private boolean addNode(String name, String iataCode, double geoLong, double geoLat);
-	// private boolean addEdge(Node m, Node n);
+	public boolean doesEdgeExist(String m, String n);
+
+	public void getInAndOutFlights(String currentAirport);
+	
+	public void getAllInAndOutFlights();
 
 }
