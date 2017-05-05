@@ -10,6 +10,7 @@ import java.io.Reader;
 public class FlightGraph implements FlightGraphInterface {
 
 	private List<Node> allAirports = new ArrayList<Node>();
+  // private HashMap<Node, ArrayList<Node>> in = new HashMap<Node, ArrayList<Node>>(); 
 	
 	public FlightGraph(String airports, String routes) throws IOException {
 
@@ -42,18 +43,16 @@ public class FlightGraph implements FlightGraphInterface {
 				" and IATA code: " + elt.iataCode + " and latitude: " + 
 				elt.geoLat + "and longitude: " + elt.geoLong);
 		}
-	}
-
 
 	public boolean doesEdgeExist(Node m, Node n) {
 		return false;
 	}
 	
-	private boolean addNode(String name, String iataCode, double geoLat, double geoLong) {
-		return false;
-	}
+	// private boolean addNode(String name, String iataCode, double geoLong, double geoLat) {
+	// 	return false;
+	// }
 	
-	private boolean addEdge(Node m, Node n){
-		return false;
-	}
+	// private boolean addEdge(Node m, Node n){
+	// 	return false;
+	// }
 }
