@@ -1,0 +1,8 @@
+1. Adjacency List (HashMap) mapping nodes to ArrayList of Nodes
+2. Djikstras to find single source shortest distance
+Classes:
+Class to parse csv file and create adjacency list + Djikstras
+Class that looks up airport code and add co-ordinates
+Class to calculate distance using co-ordinates
+"Objects: airport (code, name, x_coord, y_coord)"
+edge weights = ground distance
