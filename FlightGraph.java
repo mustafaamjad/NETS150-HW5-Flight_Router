@@ -95,7 +95,7 @@ public class FlightGraph implements FlightGraphInterface {
 		allAirports.put(airportIataCode, newAirport);
 	}
 
-	
+
 	/* 
 	 * Method name: addEdge
 	 * Method to add a new edge to the graph
