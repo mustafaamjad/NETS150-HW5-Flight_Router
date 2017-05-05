@@ -10,6 +10,8 @@ import java.io.Reader;
 public class FlightGraph implements FlightGraphInterface {
 
 	private List<Node> allAirports = new ArrayList<Node>();
+	private HashMap<Node, ArrayList<Node>> in = new HashMap<Node, ArrayList<Node>>();
+	private HashMap<Node, ArrayList<Node>> out = new HashMap<Node, ArrayList<Node>>();
 	
 	public FlightGraph(String airports, String routes) throws IOException {
 
@@ -33,15 +35,53 @@ public class FlightGraph implements FlightGraphInterface {
 		}
 
 		r.close();
-		printNodes();
+		// printNodes();
+
+		r = new FileReader(routes);
+		br = new BufferedReader(r);
+
+		while( (line = br.readLine()) != null) {
+		String[] routesData = line.split(",");
+		String airportDep = routesData[1];
+		String airportArr = routesData[2];
+		for (Node elt: allAirports) {
+			if (elt.getIataCode().equals(airportDep)) {
+				if (!out.containsKey(elt)) {
+					ArrayList<Node> temp = new ArrayList<Node>();
+					for (Node elt2 : allAirports) {
+						if (elt2.getIataCode().equals(airportArr)) {
+							temp.add(elt2);
+						}
+					}
+				out.put(elt, temp);
+				}
+
+				else {
+					for (Node elt3 : allAirports) {
+						if (elt3.getIataCode().equals(airportArr)) {
+							ArrayList<Node> temp2 = out.get(elt);
+							temp2.add(elt3);
+							out.put(elt, temp2);
+						}
+					}
+				}
+			}
+		}
+	}
+		r.close();
+		printOutMap();
 	}
 
 	private void printNodes() {
 		for (Node elt : allAirports) {
-			System.out.println("This airport has name: " + elt.name +
-				" and IATA code: " + elt.iataCode + " and latitude: " + 
-				elt.geoLat + "and longitude: " + elt.geoLong);
+			System.out.println("This airport has name: " + elt.getName() +
+				" and IATA code: " + elt.getIataCode() + " and latitude: " + 
+				elt.getGeoLat() + "and longitude: " + elt.getGeoLong());
 		}
+	}
+
+	private void printOutMap() {
+		System.out.println("printOutMap");
 	}
 
 

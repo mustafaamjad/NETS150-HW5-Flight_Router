@@ -9,4 +9,20 @@ public class Node implements NodeInterface {
 		this.geoLat = geoLat;
 		this.geoLong = geoLong;
 	}
+
+	public String getName(){
+		return this.name;
+	}
+
+	public String getIataCode(){
+		return this.iataCode;
+	}
+
+	public Double getGeoLat(){
+		return this.geoLat;
+	}
+
+	public Double getGeoLong(){
+		return this.geoLong;
+	}
 }
