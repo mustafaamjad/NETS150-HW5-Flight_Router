@@ -6,6 +6,7 @@ public class FlightRouter {
 		FlightGraph graph = new FlightGraph("airports.csv", "routes.csv");
 
 		// TEST doesEdgeExist 
-		System.out.println(graph.doesEdgeExist("YVR", "DEN"));
+		// System.out.println(graph.doesEdgeExist("YVR", "DEN"));
+		graph.getAllInAndOutFlights();
 	}
 }

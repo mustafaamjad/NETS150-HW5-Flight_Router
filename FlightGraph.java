@@ -7,6 +7,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.util.Iterator;
+import java.util.Set;
 
 public class FlightGraph implements FlightGraphInterface {
 
@@ -69,9 +71,6 @@ public class FlightGraph implements FlightGraphInterface {
 			}
 			else {
 				addEdge(currentArrAirport, currentDepAirport);
-				
-				// currentDepAirport.getOutAirports();
-				// currentArrAirport.getInAirports();
 			}
 			index2++;
 		}
@@ -127,5 +126,36 @@ public class FlightGraph implements FlightGraphInterface {
 		}
 		// returns false otherwise
 		return false;
+	}
+
+
+	/* 
+	 * Method name: getInAndOutFlights
+	 * Method to get all flights (in and out) associated to input airport
+	 * param: String currentAirport
+	 * return type: N/A
+	*/
+	public void getInAndOutFlights(String currentAirport) {
+		// gets the Node associated with String m 
+		Node currentAirportNode = allAirports.get(currentAirport);
+		String name = currentAirportNode.getName();
+		String iataCode = currentAirportNode.getIataCode();
+		System.out.println("Current Airport: " + name + " (" + iataCode + ")");
+		System.out.println("inAirports:" + currentAirportNode.getInAirports());
+		System.out.println("outAirports:" + currentAirportNode.getOutAirports());
+	}
+
+
+	/* 
+	 * Method name: getAllInAndOutFlights
+	 * Method to get all flights (in and out) associated to all airport
+	 * param: N/A
+	 * return type: N/A
+	*/
+	public void getAllInAndOutFlights() {
+		Set<String> I = allAirports.keySet();
+		for (String elt: I) {
+			getInAndOutFlights(elt);
+		}
 	}
 }
