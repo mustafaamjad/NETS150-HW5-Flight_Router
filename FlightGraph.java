@@ -47,7 +47,7 @@ public class FlightGraph implements FlightGraphInterface {
 		}
 		// closes the airports file 
 		r.close();
-		System.out.println("Finished reading airports file");
+		// System.out.println("Finished reading airports file");
 
 		Reader r2 = new FileReader(routes);
 		BufferedReader br2 = new BufferedReader(r2);
@@ -76,8 +76,7 @@ public class FlightGraph implements FlightGraphInterface {
 		}
 		// closes the routes file
 		r2.close();
-		System.out.println("Finished reading routes file");
-		getAllAirportsData();
+		// System.out.println("Finished reading routes file");
 	}
 
 
@@ -119,14 +118,31 @@ public class FlightGraph implements FlightGraphInterface {
 	*/
 	public boolean doesEdgeExist(String m, String n) {
 		// gets the Node associated with String m 
-		Node mNode = allAirports.get(m);
-		if (mNode.getInAirports().contains(n) || mNode.getOutAirports().contains(n)) {
+		if (allAirports.keySet().contains(m) && allAirports.keySet().contains(n)) {
+			Node mNode = allAirports.get(m);
+			if (mNode.getInAirports().contains(n) || mNode.getOutAirports().contains(n)) {
 			// returns true if String n exists in either Node m's inAirports
 			// or it's outAirports 
 			return true;
+			}
 		}
-		// returns false otherwise
 		return false;
+	}
+
+	public void isThereAFlightBetween(String m, String n) {
+		if (allAirports.keySet().contains(m) && allAirports.keySet().contains(n)) {
+			System.out.println("One or more of these airports does not exist.");
+		}
+		else {
+			if (doesEdgeExist(m, n)) {
+				System.out.println("Yes, there is a direct flight between " + m + 
+				" and " + n + ".");
+			}
+			else {
+				System.out.println("There is no direct flight between " + m + 
+				" and " + n + ".");
+			}
+		}
 	}
 
 
@@ -144,6 +160,36 @@ public class FlightGraph implements FlightGraphInterface {
 		// System.out.println("Current Airport: " + name + " (" + iataCode + ")");
 		// System.out.println("inAirports:" + currentAirportNode.getInAirports());
 		// System.out.println("outAirports:" + currentAirportNode.getOutAirports());
+	}
+
+	public void getFlightsTo(String airportCode) {
+		if(allAirports.keySet().contains(airportCode)) {
+			Node destination = allAirports.get(airportCode);
+			HashMap<String, Double> tempIn = destination.getIn();
+			for (String source : tempIn.keySet()) {
+				System.out.println("There is a flight from " + allAirports.get(source).getName() + 
+					"(" + source + ") to " + destination.getName() + " (" + destination.getIataCode() + ") with distance : " +
+					tempIn.get(source));
+			}
+		}
+		else {
+			System.out.println("This airport does not exist.");
+		}
+	}
+
+		public void getFlightsFrom(String airportCode) {
+		if(allAirports.keySet().contains(airportCode)) {
+			Node source = allAirports.get(airportCode);
+			HashMap<String, Double> tempOut = source.getOut();
+			for (String dest : tempOut.keySet()) {
+				System.out.println("There is a flight from " + source.getName() + "(" + source.getIataCode() +
+				 ") to " + dest + " (" + allAirports.get(dest).getName() + ") with distance : " +
+					tempOut.get(dest));
+			}
+		}
+		else {
+			System.out.println("This airport does not exist.");
+		}
 	}
 
 	public HashMap<String, Node> getAllAirports() {
@@ -164,13 +210,11 @@ public class FlightGraph implements FlightGraphInterface {
 		}
 	}
 
-	public void getAllAirportsData() {
-		System.out.println("here in getAllAirports");
+	public void getAllAirportsAndFlights() {
 		Set<String> airports = allAirports.keySet();
 		for (String elt : airports) {
 			Node thisAirport = allAirports.get(elt);
 			HashMap<String, Double> tempIn = thisAirport.getIn();
-
 			for (String thatAirport : tempIn.keySet()) {
 				System.out.println(thisAirport.getName() + " has a flight to " + thatAirport + " with distance : " +
 					tempIn.get(thatAirport));

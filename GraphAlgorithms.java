@@ -11,17 +11,6 @@ public class GraphAlgorithms {
 		return null;
 	}
 
-	// // TODO: finish writing this method
-	// public Node closestAirport(double geoLat, double geoLong){
-	// 	Node closest = null;
-	// 	for (Entry<String> : graph.getAllAirports()) {
-	// 		double dist = calculateDistance(geoLat, geoLong, elt.)
-	// 	}
-	// }
-
-	// returns the distance in km between two nodes based on their
-	// geo-coordinates
-
 	public static double calculateDistance(double geoLat1, double geoLong1, double geoLat2, double geoLong2){
 
 		double earthRadius = 6371; // in km
