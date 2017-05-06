@@ -7,7 +7,7 @@ public class GraphAlgorithms {
 		this.graph = graph;
 	}
 
-	public Node BFS(String tgtAirport){
+	public Node shortestDistance(String tgtAirport){
 		return null;
 	}
 
@@ -37,7 +37,7 @@ public class GraphAlgorithms {
 		return distance;
 	}
 
-	public ArrayList<Node> ShortestPath(Node a, Node b){
+	public ArrayList<Node> shortestPath(Node a, Node b){
 		return null;
 	}
 
