@@ -7,8 +7,8 @@ public class Node implements NodeInterface {
 
 	private String name, iataCode;
 	private Double geoLong, geoLat;
-	private HashMap<String, Double> in = new HashMap<String, Double>();
-	private HashMap<String, Double> out = new HashMap<String, Double>();
+	public HashMap<String, Double> in = new HashMap<String, Double>();
+	public HashMap<String, Double> out = new HashMap<String, Double>();
 
 	/* 
 	 * DEFAULT CONSTRUCTOR

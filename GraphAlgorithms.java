@@ -1,14 +1,45 @@
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.HashMap;
+
 public class GraphAlgorithms {
 
-	private FlightGraph graph;
+	private HashMap<String, Node> graph;
 
-	public GraphAlgorithms(FlightGraph graph) {
+	public GraphAlgorithms(HashMap<String, Node> graph) {
 		this.graph = graph;
 	}
 
-	public Node shortestDistance(String tgtAirport){
-		return null;
+	public void BFS(String src, int frontier) {
+
+		int counter = 0;
+        HashSet<String> visitedSet = new HashSet<String>();
+        LinkedList<String> queue = new LinkedList<String>();
+        visitedSet.add(src);
+        queue.add(src);
+ 
+        while (queue.size() != 0) {
+            String s = queue.poll();
+            System.out.print(s + " ");
+            Iterator<Map.Entry<String, Double>> i = graph.get(s).out.entrySet().iterator();
+            while (i.hasNext()) {
+                Map.Entry<String, Double> n = i.next();
+                if (!visitedSet.contains(n.getKey())) 
+                {
+                	System.out.println(n.getKey());
+                	visitedSet.add(n.getKey());
+         			queue.add(n.getKey());
+                }
+            }
+            counter++;
+            if (counter == frontier) {
+            	break;
+            }
+        }
+
 	}
 
 	// // TODO: finish writing this method
