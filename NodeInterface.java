@@ -11,9 +11,9 @@ public interface NodeInterface {
 
 	public Double getGeoLong();
 
-	public boolean addOutAirport(String newOutAirport);
+	public boolean addOutAirport(String newOutAirport, double outLat, double outLong);
 
-	public boolean addInAirport(String newInAirport);
+	public boolean addInAirport(String newInAirport, double outLat, double outLong);
 
 	public ArrayList<String> getInAirports();
 

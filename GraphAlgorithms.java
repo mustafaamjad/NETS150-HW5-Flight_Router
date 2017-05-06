@@ -11,8 +11,19 @@ public class GraphAlgorithms {
 		return null;
 	}
 
-	public Node closestAirport(double geoLong, double geoLat){
-		return null;
+	public static double calculateDistance(double geoLat1, double geoLong1, double geoLat2, double geoLong2){
+
+		double earthRadius = 6371; // in km
+
+		double distLat = Math.toRadians(geoLat2 - geoLat1);
+		double distLong = Math.toRadians(geoLong2 - geoLong1);
+		double a = Math.sin(distLat/2) * Math.sin(distLat/2) + 
+			Math.cos(Math.toRadians(geoLat1)) * Math.cos(Math.toRadians(geoLat2)) * 
+			Math.sin(distLong/2) * Math.sin(distLong/2);
+		double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+		double distance = earthRadius * c;
+
+		return distance;
 	}
 
 	public ArrayList<Node> ShortestPath(Node a, Node b){
