@@ -77,6 +77,7 @@ public class FlightGraph implements FlightGraphInterface {
 		// closes the routes file
 		r2.close();
 		System.out.println("Finished reading routes file");
+		getAllAirportsData();
 	}
 
 
@@ -104,9 +105,9 @@ public class FlightGraph implements FlightGraphInterface {
 	*/
 	private void addEdge(Node arrAirport, Node depAirport) {
 		// adds current arr airport to current dep airport's HashSet of out airports 
-		depAirport.addOutAirport(arrAirport.getIataCode());
+		depAirport.addOutAirport(arrAirport.getIataCode(), arrAirport.getGeoLat(), arrAirport.getGeoLong());
 		// adds current dep airport to current arr airport's HashSet of in airports
-		arrAirport.addInAirport(depAirport.getIataCode());
+		arrAirport.addInAirport(depAirport.getIataCode(), depAirport.getGeoLat(), depAirport.getGeoLong());
 	}
 
 
@@ -140,9 +141,13 @@ public class FlightGraph implements FlightGraphInterface {
 		Node currentAirportNode = allAirports.get(currentAirport);
 		String name = currentAirportNode.getName();
 		String iataCode = currentAirportNode.getIataCode();
-		System.out.println("Current Airport: " + name + " (" + iataCode + ")");
-		System.out.println("inAirports:" + currentAirportNode.getInAirports());
-		System.out.println("outAirports:" + currentAirportNode.getOutAirports());
+		// System.out.println("Current Airport: " + name + " (" + iataCode + ")");
+		// System.out.println("inAirports:" + currentAirportNode.getInAirports());
+		// System.out.println("outAirports:" + currentAirportNode.getOutAirports());
+	}
+
+	public HashMap<String, Node> getAllAirports() {
+		return allAirports;
 	}
 
 
@@ -156,6 +161,21 @@ public class FlightGraph implements FlightGraphInterface {
 		Set<String> I = allAirports.keySet();
 		for (String elt: I) {
 			getInAndOutFlights(elt);
+		}
+	}
+
+	public void getAllAirportsData() {
+		System.out.println("here in getAllAirports");
+		Set<String> airports = allAirports.keySet();
+		for (String elt : airports) {
+			Node thisAirport = allAirports.get(elt);
+			HashMap<String, Double> tempIn = thisAirport.getIn();
+
+			for (String thatAirport : tempIn.keySet()) {
+				System.out.println(thisAirport.getName() + " has a flight to " + thatAirport + " with distance : " +
+					tempIn.get(thatAirport));
+			}
+	
 		}
 	}
 }

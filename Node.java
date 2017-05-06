@@ -1,4 +1,4 @@
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
@@ -6,15 +6,15 @@ import java.util.ArrayList;
 public class Node implements NodeInterface {
 
 	private String name, iataCode;
-	private double geoLong, geoLat;
-	private HashSet<String> in = new HashSet<String>();
-	private HashSet<String> out = new HashSet<String>();
+	private Double geoLong, geoLat;
+	private HashMap<String, Double> in = new HashMap<String, Double>();
+	private HashMap<String, Double> out = new HashMap<String, Double>();
 
 	/* 
 	 * DEFAULT CONSTRUCTOR
 	 * initializes relevant variables
 	*/
-	public Node(String name, String iataCode, double geoLat, double geoLong) {
+	public Node(String name, String iataCode, Double geoLat, Double geoLong) {
 		this.name = name;
 		this.iataCode = iataCode;
 		this.geoLat = geoLat;
@@ -64,28 +64,52 @@ public class Node implements NodeInterface {
 		return this.geoLong;
 	}
 
+	/* 
+	 * Method name: distanceBetween
+	 * Method to return the distance between this airport and a pair of 
+	 * latitude, longitude coordinates
+	 * param: double lat, double lngt
+	 * return type: Double
+	*/
+	private double distanceBetween(double lat, double lngt) {
+		double dist = GraphAlgorithms.calculateDistance(lat, lngt, geoLat, geoLong);
+		return dist;
+	}
+
 
 	/* 
 	 * Method name: addOutAirport
-	 * Method to add airport to Node's outAirports
-	 * param: String newOutAirport
+	 * Method to add airport and its distance from the current node to Node's outAirports
+	 * param: String newOutAirport, double outLat, double outLong
 	 * return type: boolean
 	*/
-	public boolean addOutAirport(String newOutAirport) {
-		out.add(newOutAirport);
+	public boolean addOutAirport(String newOutAirport, double outLat, double outLong) {
+		double dist = distanceBetween(outLat, outLong);
+		// System.out.println(newOutAirport + " is at a distance of " + dist + " km from " + name + " (" + iataCode + ")");
+		out.put(newOutAirport, dist);
 		return true;
 	}
 
 
 	/* 
 	 * Method name: addInAirport
-	 * Method to add airport to Node's inAirports
+	 * Method to add airport and its distance from the current node to Node's inAirports
 	 * param: String newInAirport
 	 * return type: boolean
 	*/
-	public boolean addInAirport(String newInAirport) {
-		in.add(newInAirport);
+	public boolean addInAirport(String newInAirport, double outLat, double outLong) {
+		double dist = distanceBetween(outLat, outLong);
+		// System.out.println(newInAirport + " is at a distance of " + dist + " km from " + name + " (" + iataCode + ")");
+		in.put(newInAirport, dist);
 		return true;
+	}
+
+	public HashMap<String, Double> getIn() {
+		return this.in;
+	}
+
+		public HashMap<String, Double> getOut() {
+		return this.out;
 	}
 
 
@@ -96,10 +120,9 @@ public class Node implements NodeInterface {
 	 * return type: ArrayList<String>
 	*/
 	public ArrayList<String> getInAirports() {
-		Iterator I = in.iterator();
 		ArrayList<String> inAirports = new ArrayList<String>();
-		while(I.hasNext()) {
-			inAirports.add(I.next().toString());
+		for (String elt : in.keySet()) {
+			inAirports.add(elt);
 		}
 		return inAirports;
 	}
@@ -112,10 +135,9 @@ public class Node implements NodeInterface {
 	 * return type: ArrayList<String>
 	*/
 	public ArrayList<String> getOutAirports() {
-		Iterator I = out.iterator();
 		ArrayList<String> outAirports = new ArrayList<String>();
-		while(I.hasNext()) {
-			outAirports.add(I.next().toString());
+		for (String elt : out.keySet()) {
+			outAirports.add(elt);
 		}
 		return outAirports;
 	}
